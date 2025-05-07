@@ -20,7 +20,7 @@ DB_CONFIG = {
     "dbname": os.getenv("DB_NAME", "postgres"),
     "user": os.getenv("DB_USER", "root"),
     "password": os.getenv("DB_PASSWORD", "password@root"),
-    "host": os.getenv("DB_HOST", "localhost"),
+    "host": os.getenv("DB_HOST", "3.111.45.66"),
     "port": int(os.getenv("DB_PORT", 5432)),
     "connect_timeout": int(os.getenv("DB_CONNECT_TIMEOUT", 30))
 }

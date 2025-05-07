@@ -53,7 +53,7 @@ export default function MainGrid() {
   useEffect(() => {
     async function fetchAllTimeStats() {
       try {
-        const response = await fetch('http://localhost:8000/daily-stats'); 
+        const response = await fetch('http://3.111.45.66:8000/daily-stats'); 
         if (!response.ok) throw new Error('Failed to fetch data');
         const result = await response.json() as any; 
         

@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.chrome.options import Options
-from producer.scraper.utils.chrome_driver import get_default_driver_options
+from scraper.utils.chrome_driver import get_default_driver_options
 from credentials import getRandomLoginCredential
 
 

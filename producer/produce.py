@@ -4,17 +4,16 @@ import os
 import sys
 from turtle import update
 import psycopg2
-from rabbitmq import RabbitMQHelper
-
+from rabbit import RabbitMQHelper
 from job_titles import getRandomJobTitle
 from psycopg2 import OperationalError
 from config import DB_CONFIG
 from authenticate import generateCookie
-from producer.scraper.events.events import EventData, EventMetrics, Events
-from producer.scraper.exceptions.exceptions import InvalidCookieException
-from producer.scraper.filters.filters import ExperienceLevelFilters
-from producer.scraper.linkedin_scraper import LinkedinScraper
-from producer.scraper.query.query import Query, QueryFilters, QueryOptions
+from scraper.events.events import EventData, EventMetrics, Events
+from scraper.exceptions.exceptions import InvalidCookieException
+from scraper.filters.filters import ExperienceLevelFilters
+from scraper.linkedin_scraper import LinkedinScraper
+from scraper.query.query import Query, QueryFilters, QueryOptions
 logging.basicConfig(level=logging.ERROR)
 from datetime import datetime
 conn = None

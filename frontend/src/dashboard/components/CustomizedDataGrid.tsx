@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { columns } from '../internals/data/gridData';
 
-const WEBSOCKET_URL = 'ws://localhost:8000/jobfeed';
+const WEBSOCKET_URL = 'ws://3.111.45.66:8000/jobfeed';
 const STORAGE_KEY = 'lastJobFeed'; // LocalStorage key
 
 export default function CustomizedDataGrid() {
