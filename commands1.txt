@@ -1,0 +1,20 @@
+// Constraints
+CREATE CONSTRAINT FOR (c:Company) REQUIRE c.name IS UNIQUE;
+CREATE CONSTRAINT FOR (j:JobPosting) REQUIRE j.job_id IS UNIQUE;
+CREATE CONSTRAINT FOR (s:Skill) REQUIRE s.skill_id IS UNIQUE;
+CREATE CONSTRAINT FOR (t:JobTitle) REQUIRE t.name IS UNIQUE;
+
+// Indexes
+CREATE INDEX IF NOT EXISTS FOR (j:JobPosting) ON (j.job_id);
+CREATE INDEX IF NOT EXISTS FOR (s:Skill) ON (s.skill_id);
+CREATE INDEX IF NOT EXISTS FOR (t:JobTitle) ON (t.name);
+CREATE INDEX IF NOT EXISTS FOR ()-[r:MENTIONS]->() ON (r.processed_at);
+CREATE INDEX IF NOT EXISTS FOR (sf:SkillFrequency) ON (sf.period_start);
+CREATE INDEX IF NOT EXISTS FOR (s:Skill) ON (s.skill_id);
+CREATE INDEX IF NOT EXISTS FOR (t:JobTitle) ON (t.name);
+
+// Relationships
+CREATE (c:Company)-[:POSTED_BY]->(j:JobPosting);
+CREATE (j:JobPosting)-[r:MENTIONS {processed_at: datetime()}]->(s:Skill);
+
+

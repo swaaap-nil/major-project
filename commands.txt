@@ -1,0 +1,60 @@
+CREATE CONSTRAINT FOR (c:Company) REQUIRE c.name IS UNIQUE;
+CREATE CONSTRAINT FOR (j:JobPosting) REQUIRE j.job_id IS UNIQUE;
+CREATE CONSTRAINT FOR (s:Skill) REQUIRE s.skill_id IS UNIQUE;
+CREATE CONSTRAINT FOR (t:JobTitle) REQUIRE t.name IS UNIQUE;
+CREATE INDEX IF NOT EXISTS FOR (j:JobPosting) ON (j.job_id);
+CREATE INDEX IF NOT EXISTS FOR (s:Skill) ON (s.skill_id);
+CREATE INDEX IF NOT EXISTS FOR (t:JobTitle) ON (t.name);
+
+CREATE (c:Company)-[:POSTED_BY]->(j:JobPosting);
+CREATE (j:JobPosting)-[r:MENTIONS {processed_at: datetime()}]->(s:Skill);
+
+
+// Insert Companies
+CREATE (:Company {name: 'TechCorp'});
+CREATE (:Company {name: 'Innovative Solutions'});
+CREATE (:Company {name: 'FutureTech'});
+
+// Insert Job Titles
+CREATE (:JobTitle {name: 'Software Engineer'});
+CREATE (:JobTitle {name: 'Data Scientist'});
+CREATE (:JobTitle {name: 'Product Manager'});
+
+// Insert Skills
+CREATE (:Skill {skill_id: 'S001', name: 'Java'});
+CREATE (:Skill {skill_id: 'S002', name: 'Python'});
+CREATE (:Skill {skill_id: 'S003', name: 'SQL'});
+CREATE (:Skill {skill_id: 'S004', name: 'Machine Learning'});
+CREATE (:Skill {skill_id: 'S005', name: 'Project Management'});
+
+// Insert Job Postings
+CREATE (:JobPosting {job_id: 'J001', link: 'https://techcorp.com/job1', processed_at: datetime('2023-12-01'), location: 'New York'});
+CREATE (:JobPosting {job_id: 'J002', link: 'https://innosolutions.com/job2', processed_at: datetime('2023-12-05'), location: 'San Francisco'});
+CREATE (:JobPosting {job_id: 'J003', link: 'https://futuretech.com/job3', processed_at: datetime('2023-12-10'), location: 'Remote'});
+
+// Link Job Titles to Skills (REQUIRES)
+MATCH (t:JobTitle {name: 'Software Engineer'}), (s1:Skill {name: 'Java'}), (s2:Skill {name: 'Python'}), (s3:Skill {name: 'SQL'})
+CREATE (t)-[:REQUIRES]->(s1), (t)-[:REQUIRES]->(s2), (t)-[:REQUIRES]->(s3);
+
+MATCH (t:JobTitle {name: 'Data Scientist'}), (s2:Skill {name: 'Python'}), (s4:Skill {name: 'Machine Learning'}), (s3:Skill {name: 'SQL'})
+CREATE (t)-[:REQUIRES]->(s2), (t)-[:REQUIRES]->(s4), (t)-[:REQUIRES]->(s3);
+
+// Link Job Postings to Skills (MENTIONS)
+MATCH (j:JobPosting {job_id: 'J001'}), (s1:Skill {name: 'Java'}), (s2:Skill {name: 'Python'})
+CREATE (j)-[:MENTIONS {processed_at: datetime('2023-12-01')}]->(s1), (j)-[:MENTIONS {processed_at: datetime('2023-12-01')}]->(s2);
+
+MATCH (j:JobPosting {job_id: 'J002'}), (s2:Skill {name: 'Python'}), (s4:Skill {name: 'Machine Learning'})
+CREATE (j)-[:MENTIONS {processed_at: datetime('2023-12-05')}]->(s2), (j)-[:MENTIONS {processed_at: datetime('2023-12-05')}]->(s4);
+
+MATCH (j:JobPosting {job_id: 'J003'}), (s2:Skill {name: 'Python'}), (s4:Skill {name: 'Machine Learning'})
+CREATE (j)-[:MENTIONS {processed_at: datetime('2023-12-10')}]->(s2), (j)-[:MENTIONS {processed_at: datetime('2023-12-10')}]->(s4);
+
+// Link Job Postings to Companies (POSTED_BY)
+MATCH (c:Company {name: 'TechCorp'}), (j:JobPosting {job_id: 'J001'})
+CREATE (c)-[:POSTED_BY]->(j);
+
+MATCH (c:Company {name: 'Innovative Solutions'}), (j:JobPosting {job_id: 'J002'})
+CREATE (c)-[:POSTED_BY]->(j);
+
+MATCH (c:Company {name: 'FutureTech'}), (j:JobPosting {job_id: 'J003'})
+CREATE (c)-[:POSTED_BY]->(j);

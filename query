@@ -1,0 +1,20 @@
+now write a query to create the following:
+label: company
+properties: name
+
+label: JOB_POSTING
+properties: job_id, link, processed_at, location
+
+label: SKILL
+properties: skill_Id, 
+name:
+
+label: JOB_TITLE
+properties: name
+
+relationships: 
+
+job postings mention skills (one to many)
+job title requires skills (one to many)
+
+and suggest me any more properties if you can think of any more properties. i also want to some how store info such that i can answer queries like what skills were most demanded for a given job title in last week ,last month, last 6 months, last year, all time? but i am not sure how to store this info? or even where to store in which entity or in which relationship can you give any ideas?

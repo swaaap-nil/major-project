@@ -1,0 +1,83 @@
+services:
+  db:
+    image: postgres:17
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password@root
+      POSTGRES_DB: postgres
+    volumes:
+      - ./backend/pgdata:/var/lib/postgresql/data
+
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  backend:
+    build: 
+      context: backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - rabbitmq
+  
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  # neo4j:
+  #   image: neo4j:latest
+  #   container_name: neo4j
+  #   environment:
+  #     - NEO4J_AUTH=neo4j/testpassword
+  #     - NEO4J_dbms_default__listen__address=0.0.0.0
+  #     - NEO4J_dbms_connector_http_listen__address=:7474
+  #     - NEO4J_dbms_connector_https_listen__address=:7473
+  #     - NEO4J_dbms_connector_bolt_listen__address=:7687
+  #   ports:
+  #     - "7474:7474"  # HTTP
+  #     - "7473:7473"  # HTTPS
+  #     - "7687:7687"  # Bolt
+  #   volumes:
+  #     - neo4j_data:/data
+  #     - neo4j_logs:/logs
+  #     - neo4j_import:/import
+  #     - neo4j_plugins:/plugins
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672" # Management console
+      - "5672:5672"   # AMQP port
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: user@notification
+      RABBITMQ_DEFAULT_PASS: password@notification
+    volumes:
+      - ./rabbitmq_data/:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+
+
+
+
