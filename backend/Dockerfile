@@ -17,6 +17,8 @@ RUN pip install --upgrade pip && \
 
 RUN pip install uvicorn
 
+RUN python3 -m spacy download en_core_web_lg
+
 # Copy the rest of the application code
 COPY . .
 

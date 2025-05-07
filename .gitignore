@@ -1,7 +1,10 @@
-backend/mp
+backend/bin/
+backend/include/*
+backend/lib/*
 backend/pgdata
 backend/skill_db_relax_20.json
 backend/token_dist.json
+backend/share
 
 frontend/node_modules
 frontend/.vscode
@@ -9,3 +12,4 @@ frontend/.vscode
 rabbitmq_data
 producer/bin
 producer/
+backend/pyvenv.cfg
