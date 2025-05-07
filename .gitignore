@@ -11,5 +11,7 @@ frontend/.vscode
 
 rabbitmq_data
 producer/bin
-producer/
+producer/lib
+producer/include
+producer/pyvenv.cfg
 backend/pyvenv.cfg
