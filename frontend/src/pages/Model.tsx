@@ -4,8 +4,6 @@ import SideMenu from "../dashboard/components/SideMenu";
 import AppNavbar from "../dashboard/components/AppNavbar";
 import { useState } from "react";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import Header from "../dashboard/components/Header";
-import { height } from "@mui/system";
 
 export default function Model(props: { disableCustomTheme?: boolean }) {
   const [essayText, setEssayText] = useState("");
@@ -17,7 +15,7 @@ export default function Model(props: { disableCustomTheme?: boolean }) {
 
   const handleIdentifySkillsClick = async () => {
     try {
-        const response = await fetch(`http://localhost:8000/extract-skills-html/?job_description=${essayText}`, {
+        const response = await fetch(`http://3.111.45.66:8000/extract-skills-html/?job_description=${essayText}`, {
           method: "GET", // Use GET method as we're passing data in the URL
           headers: {
             "Content-Type": "application/json",

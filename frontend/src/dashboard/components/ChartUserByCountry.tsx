@@ -123,7 +123,7 @@ export default function ChartJobByCompany() {
   useEffect(() => {
       async function fetchCompanyWiseData() {
         try {
-          const response = await fetch('http://localhost:8000/company-wise-stats'); 
+          const response = await fetch('http://3.111.45.66:8000/company-wise-stats'); 
           if (!response.ok) throw new Error('Failed to fetch data');
           const result = await response.json();
           console.log(result)
