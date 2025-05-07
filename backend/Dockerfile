@@ -15,6 +15,8 @@ COPY requirements.txt .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
+RUN pip install uvicorn
+
 # Copy the rest of the application code
 COPY . .
 
