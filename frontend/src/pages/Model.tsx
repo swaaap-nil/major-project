@@ -15,7 +15,7 @@ export default function Model(props: { disableCustomTheme?: boolean }) {
 
   const handleIdentifySkillsClick = async () => {
     try {
-        const response = await fetch(`http://3.111.45.66:8000/extract-skills-html/?job_description=${essayText}`, {
+        const response = await fetch(`http://localhost:8000/extract-skills-html/?job_description=${essayText}`, {
           method: "GET", // Use GET method as we're passing data in the URL
           headers: {
             "Content-Type": "application/json",

@@ -148,7 +148,7 @@ scraper.on(Events.END, on_end)
 
 if __name__ == '__main__':
     setupDatabase()
-    rabbitmq = RabbitMQHelper(host='3.111.45.66')
+    rabbitmq = RabbitMQHelper(host='localhost')
     print('li_at_cookie:',os.environ['LI_AT_COOKIE'])
     queries = [
         Query(
